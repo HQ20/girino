@@ -1,0 +1,17 @@
+{
+    "name": "girino",
+    "version": "0.0.1-alpha",
+    "description": "A truffle test helper to use with chai.",
+    "scripts": {
+        "test": "mocha"
+    },
+    "keywords": [],
+    "author": "obernardovieira",
+    "license": "GPL-3.0-only",
+    "dependencies": {
+        "chai": "4.2.0",
+        "mocha": "6.1.4",
+        "openzeppelin-solidity": "2.3.0",
+        "truffle": "5.0.21"
+    }
+}
