@@ -14,11 +14,6 @@ contract("SimpleToken", (accounts) => {
         simpleToken = await SimpleToken.deployed();
     });
 
-    it("simple", () => {
-        var arthur = 'person';
-        expect(arthur).to.model;
-    });
-
     describe('revert', () => {
         it("should revert", () => {
             expect(
@@ -30,6 +25,14 @@ contract("SimpleToken", (accounts) => {
             expect(
                 simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[1] })
             ).to.revert;
+        });
+    });
+
+    describe('emit', () => {
+        it("to emit", async () => {
+            expect(
+                await simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
+            ).to.emit('Transfer');
         });
     });
 });
