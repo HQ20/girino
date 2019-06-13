@@ -6,8 +6,8 @@ const expect = chai.expect;
 chai.use(chaiModel);
 
 
-contract("SimpleToken", accounts => {
-    const simpleToken;
+contract("SimpleToken", (accounts) => {
+    let simpleToken;
 
     before(async () => {
         simpleToken = await SimpleToken.deployed();
