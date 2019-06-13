@@ -8,4 +8,14 @@ module.exports = function (chai, utils) {
             , 'expected #{this} to not be a Model'
         );
     });
+
+    utils.addProperty(Assertion.prototype, 'revert', async function () {
+        let exception;
+        try {
+            await this._obj;
+        } catch(ex) {
+            exception = ex;
+        }
+        this.assert(exception, 'Expected to revert!');
+    });
 };

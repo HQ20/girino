@@ -9,6 +9,7 @@
     "author": "obernardovieira",
     "license": "GPL-3.0-only",
     "dependencies": {
+        "bignumber.js": "9.0.0",
         "chai": "4.2.0",
         "mocha": "6.1.4",
         "openzeppelin-solidity": "2.3.0",
