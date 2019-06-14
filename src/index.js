@@ -55,21 +55,27 @@ module.exports = function (chai, utils) {
     });
 
     utils.addMethod(Assertion.prototype, 'emit', function (eventName) {
-        const transactionLogs = this._obj.logs;
-        const totalLogs = transactionLogs.length;
-        let success = false;
-        for (let x = 0; x < totalLogs; x += 1) {
-            if (transactionLogs[x].event === eventName) {
-                success = true;
-                break;
+        const derivedPromise = this._obj.then(
+            (value) => {
+                const transactionLogs = value.logs;
+                const totalLogs = transactionLogs.length;
+                let success = false;
+                for (let x = 0; x < totalLogs; x += 1) {
+                    if (transactionLogs[x].event === eventName) {
+                        success = true;
+                        break;
+                    }
+                }
+                this.assert(
+                    success,
+                    "expected #{this} to find #{exp}",
+                    "expected #{this} to not find #{exp}",
+                    eventName
+                );
+                return value;
             }
-        }
-        this.assert(
-            success,
-            "expected #{this} to find #{exp}",
-            "expected #{this} to not find #{exp}",
-            eventName
         );
+        this.then = derivedPromise.then.bind(derivedPromise);
         return this;
     });
 
