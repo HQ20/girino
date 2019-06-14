@@ -10,7 +10,14 @@
         "docs": "jsdoc ./src/*.js -d ./docs"
     },
     "keywords": [
-        "chai"
+        "chai",
+        "truffle",
+        "module",
+        "helper",
+        "solidity",
+        "tests",
+        "smart",
+        "contracts"
     ],
     "author": "obernardovieira",
     "license": "GPL-3.0-only",
@@ -28,7 +35,7 @@
         "eslint-plugin-react": "7.12.4",
         "jsdoc": "3.5.5",
         "mocha": "6.1.4",
-        "nyc": "^14.1.1",
+        "nyc": "14.1.1",
         "openzeppelin-solidity": "2.3.0",
         "truffle": "5.0.11"
     },
