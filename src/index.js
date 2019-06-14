@@ -46,6 +46,7 @@ module.exports = function (chai, utils) {
             "expected #{this} to not find #{exp}",
             eventName
         );
+        return this;
     });
 
     utils.addMethod(Assertion.prototype, 'withArgs', function (...args) {
@@ -80,5 +81,6 @@ module.exports = function (chai, utils) {
             "expected #{this} to not find #{exp}",
             args
         );
+        return this;
     });
 };
