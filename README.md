@@ -26,19 +26,20 @@ contract('SimpleToken', (accounts) => {
     let simpleToken;
     const aToken = new BigNumber('1');
     const mainAccount = accounts[0];
+    const userAccount = accounts[1];
     const receiverAccount = accounts[2];
 
     before(async () => {
         simpleToken = await SimpleToken.deployed();
     });
 
-    it('should not revert', () => expect(
-        simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
-    ).to.not.revert);
+    it('should revert', () => expect(
+        simpleToken.transfer(receiverAccount, aToken, { from: userAccount }),
+    ).to.revert);
 
-    it('should not revertWith', () => expect(
-        simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
-    ).to.not.revertWith('SafeMath: subtraction overflow'));
+    it('should revertWith', () => expect(
+        simpleToken.transfer(receiverAccount, aToken, { from: userAccount }),
+    ).to.revertWith('SafeMath: subtraction overflow'));
 
     it('to emit', () => expect(
         simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
@@ -50,6 +51,8 @@ contract('SimpleToken', (accounts) => {
 });
 
 ```
+
+And then just run tests as you are used to, with `truffle test`
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
