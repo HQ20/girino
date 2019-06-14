@@ -55,11 +55,11 @@ contract("SimpleToken", (accounts) => {
         });
     });
 
-    /*describe('withArgs', () => {
-        it("withArgs success", async () => {
-            expect(
-                await simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
+    describe('withArgs', () => {
+        it("withArgs success", () => {
+            return expect(
+                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
             ).to.emit('Transfer').withArgs(accounts[0], accounts[2], new BigNumber('1'))
         });
-    });*/
+    });
 });
