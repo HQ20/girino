@@ -1,65 +1,72 @@
 const SimpleToken = artifacts.require('SimpleToken');
 const BigNumber = require('bignumber.js');
 const chai = require('chai');
-const chaiModel = require('../src/index');
-const expect = chai.expect;
+const girino = require('../src/index');
 
-chai.use(chaiModel);
+const { expect } = chai;
 
-contract("SimpleToken", (accounts) => {
+chai.use(girino);
+
+contract('SimpleToken', (accounts) => {
     let simpleToken;
+    const aToken = new BigNumber('1');
+    const mainAccount = accounts[0];
+    const receiverAccount = accounts[2];
 
     before(async () => {
         simpleToken = await SimpleToken.deployed();
     });
 
     describe('revert', () => {
-        it("should not revert", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.not.revert;
-        });
+        it('should not revert', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+        ).to.not.revert);
 
-        it("should revert", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[1] })
-            ).to.revert;
-        });
+        it('should revert', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: accounts[1] }),
+        ).to.revert);
     });
 
     describe('revertWith', () => {
-        it("should not revertWith", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.not.revertWith('SafeMath: subtraction overflow');
-        });
+        it('should not revertWith', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+        ).to.not.revertWith('SafeMath: subtraction overflow'));
 
-        it("should revertWith", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[1] })
-            ).to.revertWith('SafeMath: subtraction overflow');
-        });
+        it('should revertWith', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: accounts[1] }),
+        ).to.revertWith('SafeMath: subtraction overflow'));
     });
 
     describe('emit', () => {
-        it("to emit", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.emit('Transfer');
-        });
+        it('to emit', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+        ).to.emit('Transfer'));
 
-        it("to not emit", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.not.emit('Approve');
-        });
+        it('to not emit', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+        ).to.not.emit('Approve'));
     });
 
     describe('withArgs', () => {
-        it("withArgs success", () => {
-            return expect(
-                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.emit('Transfer').withArgs(accounts[0], accounts[2], new BigNumber('1'))
+        it('withArgs success', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+        ).to.emit('Transfer').withArgs(mainAccount, receiverAccount, aToken));
+
+        it('withArgs no success', () => expect(
+            simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+        ).to.emit('Transfer').withArgs(mainAccount, receiverAccount, aToken));
+
+        it('withArgs no success', async () => {
+            let success = true;
+            try {
+                await expect(
+                    simpleToken.transfer(receiverAccount, aToken, { from: mainAccount }),
+                ).to.emit('Transfer').withArgs(accounts[3], receiverAccount, aToken);
+                success = false;
+            } catch (e) {
+                //
+            }
+            return expect(success).to.be.true;
         });
     });
 });
