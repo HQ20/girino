@@ -3,16 +3,42 @@
     "version": "0.0.1-alpha",
     "description": "A truffle test helper to use with chai.",
     "scripts": {
-        "test": "truffle test --network test"
+        "test": "truffle test --network test",
+        "lint:js": "eslint src/*.js .",
+        "coverage": "nyc --reporter=html --reporter=text npm test",
+        "coverage:ci": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+        "docs": "jsdoc ./src/*.js -d ./docs"
     },
-    "keywords": [],
+    "keywords": [
+        "chai"
+    ],
     "author": "obernardovieira",
     "license": "GPL-3.0-only",
     "dependencies": {
         "bignumber.js": "9.0.0",
-        "chai": "4.2.0",
+        "chai": "4.2.0"
+    },
+    "devDependencies": {
+        "coveralls": "3.0.3",
+        "eslint": "5.15.3",
+        "eslint-config-airbnb": "17.1.0",
+        "eslint-config-airbnb-base": "13.1.0",
+        "eslint-plugin-import": "2.16.0",
+        "eslint-plugin-jsx-a11y": "6.2.1",
+        "eslint-plugin-react": "7.12.4",
+        "jsdoc": "3.5.5",
         "mocha": "6.1.4",
+        "nyc": "^14.1.1",
         "openzeppelin-solidity": "2.3.0",
         "truffle": "5.0.11"
+    },
+    "nyc": {
+        "all": true,
+        "include": [
+            "src/**/*.js"
+        ],
+        "exclude": [
+            "**/*.spec.js"
+        ]
     }
 }
