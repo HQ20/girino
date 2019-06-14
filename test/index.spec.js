@@ -1,13 +1,10 @@
 const SimpleToken = artifacts.require('SimpleToken');
 const BigNumber = require('bignumber.js');
 const chai = require('chai');
-var chaiAsPromised = require("chai-as-promised");
 const chaiModel = require('../src/index');
 const expect = chai.expect;
 
-chai.use(chaiAsPromised);
 chai.use(chaiModel);
-chai.should();
 
 contract("SimpleToken", (accounts) => {
     let simpleToken;
@@ -17,16 +14,30 @@ contract("SimpleToken", (accounts) => {
     });
 
     describe('revert', () => {
-        it("should not revert", async () => {
-            await expect(
+        it("should not revert", () => {
+            return expect(
                 simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.not.revert();
+            ).to.not.revert;
         });
 
         it("should revert", () => {
             return expect(
                 simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[1] })
-            ).to.eventually.revert('SafeMath: subtraction overflow');
+            ).to.revert;
+        });
+    });
+
+    describe('revertWith', () => {
+        it("should not revertWith", () => {
+            return expect(
+                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
+            ).to.not.revertWith('SafeMath: subtraction overflow');
+        });
+
+        it("should revertWith", () => {
+            return expect(
+                simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[1] })
+            ).to.revertWith('SafeMath: subtraction overflow');
         });
     });
 

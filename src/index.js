@@ -3,7 +3,33 @@ const BigNumber = require('bignumber.js');
 module.exports = function (chai, utils) {
     var Assertion = chai.Assertion;
 
-    utils.addMethod(Assertion.prototype, 'revert', function (revertReason) {
+    utils.addProperty(Assertion.prototype, 'revert', function (revertReason) {
+        const derivedPromise = this._obj.then(
+            (value) => {
+                this.assert(false,
+                    'Expected to reverted',
+                    'Expected NOT reverted');
+                return value;
+            },
+            (reason) => {
+                const revertMessage = reason.toString().search('revert');
+                const throwMessage = reason.toString().search('invalid opcode');
+                this.assert(
+                    revertMessage >= 0 || throwMessage >= 0,
+                    'Something happened: ' + reason,
+                    'Expected NOT reverted',
+                    'Reverted',
+                    reason
+                );
+                return reason;
+            }
+        );
+        this.then = derivedPromise.then.bind(derivedPromise);
+        this.catch = derivedPromise.catch.bind(derivedPromise);
+        return this;
+    });
+
+    utils.addMethod(Assertion.prototype, 'revertWith', function (revertReason) {
         const derivedPromise = this._obj.then(
             (value) => {
                 this.assert(false,
@@ -13,15 +39,13 @@ module.exports = function (chai, utils) {
             },
             (reason) => {
                 const reasonMessage = reason.toString().match(/Reason given: (.*)\./)[1];
-                if (revertReason.length > 0) {
-                    this.assert(
-                        reasonMessage === revertReason,
-                        "expected #{exp} but found #{act}",
-                        "expected #{exp} but was not found",
-                        revertReason,
-                        reasonMessage
-                    );
-                }
+                this.assert(
+                    reasonMessage === revertReason,
+                    "expected #{exp} but found #{act}",
+                    "expected to not find #{exp} but was found",
+                    revertReason,
+                    reasonMessage
+                );
                 return reason;
             }
         );
