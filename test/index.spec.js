@@ -15,16 +15,16 @@ contract("SimpleToken", (accounts) => {
     });
 
     describe('revert', () => {
-        it("should revert", () => {
-            expect(
+        it("should not revert", async () => {
+            await expect(
                 simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[0] })
-            ).to.not.revert;
+            ).to.not.revert();
         });
 
-        it("should not revert", () => {
-            expect(
+        it("should revert", async () => {
+            await expect(
                 simpleToken.transfer(accounts[2], new BigNumber('1'), { from: accounts[1] })
-            ).to.revert;
+            ).to.revert('SafeMath: subtraction overflow');
         });
     });
 

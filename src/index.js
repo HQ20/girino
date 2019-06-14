@@ -3,14 +3,31 @@ const BigNumber = require('bignumber.js');
 module.exports = function (chai, utils) {
     var Assertion = chai.Assertion;
 
-    utils.addProperty(Assertion.prototype, 'revert', async function () {
-        let exception;
-        try {
-            await this._obj;
-        } catch (ex) {
-            exception = ex;
-        }
-        this.assert(exception, 'Expected to revert!');
+    utils.addMethod(Assertion.prototype, 'revert', function (revertReason) {
+        const derivedPromise = this._obj.then(
+            (value) => {
+                this.assert(false,
+                    'Expected to reverted',
+                    'Expected NOT reverted');
+                return value;
+            },
+            (reason) => {
+                const reasonMessage = reason.toString().match(/Reason given: (.*)\./)[1];
+                if (revertReason.length > 0) {
+                    this.assert(
+                        reasonMessage === revertReason,
+                        "expected #{exp} but found #{act}",
+                        "expected #{exp} but was not found",
+                        revertReason,
+                        reasonMessage
+                    );
+                }
+                return reason;
+            }
+        );
+        this.then = derivedPromise.then.bind(derivedPromise);
+        this.catch = derivedPromise.catch.bind(derivedPromise);
+        return this;
     });
 
     utils.addMethod(Assertion.prototype, 'emit', function (eventName) {
