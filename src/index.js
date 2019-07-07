@@ -41,14 +41,23 @@ module.exports = function (chai, utils) {
                 return value;
             },
             (reason) => {
-                const reasonMessage = reason.toString().match(/Reason given: (.*)\./)[1];
-                this.assert(
-                    reasonMessage === revertReason,
-                    'expected #{exp} but found #{act}',
-                    'expected to not find #{exp} but was found',
-                    revertReason,
-                    reasonMessage,
-                );
+                let reasonComplete = reason.toString().match(/Reason given: ([a-zA-Z0-9 .!:]*)\./);
+                let reasonMessage;
+                if (reasonComplete === null) {
+                    reasonComplete = reason.toString()
+                        .match(/VM Exception while processing transaction: revert ([a-zA-Z0-9 .!:]*)/);
+                }
+                if (reasonComplete !== null) {
+                    // eslint-disable-next-line prefer-destructuring
+                    reasonMessage = reasonComplete[1];
+                    this.assert(
+                        reasonMessage === revertReason,
+                        'expected #{exp} but found #{act}',
+                        'expected to not find #{exp} but was found',
+                        revertReason,
+                        reasonMessage,
+                    );
+                }
                 return reason;
             },
         );
