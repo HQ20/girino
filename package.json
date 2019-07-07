@@ -2,6 +2,7 @@
     "name": "girino",
     "version": "0.0.1-alpha",
     "description": "A truffle test helper to use with chai.",
+    "main": "src/index.js",
     "scripts": {
         "test": "truffle test --network test",
         "lint:js": "eslint src/*.js .",
