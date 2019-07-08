@@ -3,6 +3,9 @@
     "version": "0.0.1-alpha",
     "description": "A truffle test helper to use with chai.",
     "main": "src/index.js",
+    "files": [
+        "/src"
+    ],
     "scripts": {
         "test": "truffle test --network test",
         "lint:js": "eslint src/*.js .",
@@ -34,7 +37,7 @@
         "eslint-plugin-import": "2.16.0",
         "eslint-plugin-jsx-a11y": "6.2.1",
         "eslint-plugin-react": "7.12.4",
-        "jsdoc": "3.5.5",
+        "jsdoc": "3.6.2",
         "mocha": "6.1.4",
         "nyc": "14.1.1",
         "openzeppelin-solidity": "2.3.0",
