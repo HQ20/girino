@@ -25,4 +25,11 @@ contract SimpleToken is ERC20, ERC20Detailed {
         require(false == true, "This isn't a normal revert!");
         return true;
     }
+
+    /**
+     * Method always retusn 5. Used to test BN comparison.
+     */
+    function returnNumber() public pure returns(uint256) {
+        return 5;
+    }
 }

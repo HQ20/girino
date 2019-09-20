@@ -73,4 +73,36 @@ contract('SimpleToken', (accounts) => {
             return expect(success).to.be.true;
         });
     });
+
+    describe('equal with big numbers', () => {
+        it('equal with success', () => expect(
+            simpleToken.returnNumber(),
+        ).to.be.equal('5'));
+
+        it('should throw when should not be equal', async () => {
+            let err;
+            try {
+                await expect(
+                    simpleToken.returnNumber(),
+                ).to.not.be.equal('5');
+            } catch (e) {
+                err = e;
+            } finally {
+                expect(err.message).to.equal('expected \'5\' (BN) to not have been equal to \'5\' but instead got \'5\'');
+            }
+        });
+
+        it('should throw when not equal', async () => {
+            let err;
+            try {
+                await expect(
+                    simpleToken.returnNumber(),
+                ).to.be.equal('6');
+            } catch (e) {
+                err = e;
+            } finally {
+                expect(err.message).to.equal('expected \'5\' (BN) to be equal to \'6\' but instead got \'5\'');
+            }
+        });
+    });
 });
