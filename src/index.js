@@ -41,11 +41,11 @@ module.exports = function (chai, utils) {
                 return value;
             },
             (reason) => {
-                let reasonComplete = reason.toString().match(/Reason given: ([a-zA-Z0-9 .!:]*)\./);
+                let reasonComplete = reason.toString().match(/Reason given: ([a-zA-Z0-9 .!:']*)\./);
                 let reasonMessage;
                 if (reasonComplete === null) {
                     reasonComplete = reason.toString()
-                        .match(/VM Exception while processing transaction: revert ([a-zA-Z0-9 .!:]*)/);
+                        .match(/VM Exception while processing transaction: revert ([a-zA-Z0-9 .!:']*)/);
                 }
                 if (reasonComplete !== null) {
                     // eslint-disable-next-line prefer-destructuring

@@ -35,6 +35,10 @@ contract('SimpleToken', (accounts) => {
         it('should revertWith', () => expect(
             simpleToken.transfer(receiverAccount, aToken, { from: accounts[1] }),
         ).to.revertWith('SafeMath: subtraction overflow'));
+
+        it('should revertWith when using \'', () => expect(
+            simpleToken.failQuote(),
+        ).to.revertWith('This isn\'t a normal revert!'));
     });
 
     describe('emit', () => {
