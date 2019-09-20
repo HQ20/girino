@@ -7,7 +7,7 @@
         "/src"
     ],
     "scripts": {
-        "test": "truffle test --network test",
+        "test": "./scripts/test.sh",
         "lint": "eslint src/*.js .",
         "coverage": "nyc --reporter=html --reporter=text npm test",
         "coverage:ci": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
