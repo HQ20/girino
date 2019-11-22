@@ -129,16 +129,20 @@ module.exports = function (chai, utils) {
         return this;
     });
 
+    // eslint-disable-next-line
     utils.overwriteMethod(Assertion.prototype, 'equal', function (_super) {
+        // eslint-disable-next-line consistent-return
         return function assertEqualBN(n) {
+            // eslint-disable-next-line no-underscore-dangle
             if (this._obj.constructor.name === 'Promise') {
+                // eslint-disable-next-line no-underscore-dangle
                 const txPromise = this._obj.then((resultValueBN) => {
                     if (resultValueBN.constructor.name === 'BN') {
                         const value = resultValueBN.toString();
                         this.assert(
                             value === n,
-                            "expected '" + value + "' (BN) to be equal to #{exp} but instead got #{act}",
-                            "expected '" + value + "' (BN) to not have been equal to #{exp} but instead got #{act}",
+                            `expected '${value}' (BN) to be equal to #{exp} but instead got #{act}`,
+                            `expected '${value}' (BN) to not have been equal to #{exp} but instead got #{act}`,
                             n,
                             value,
                         );
@@ -146,9 +150,9 @@ module.exports = function (chai, utils) {
                 });
                 this.then = txPromise.then.bind(txPromise);
                 return this;
-            } else {
-                _super.apply(this, arguments);
             }
+            // eslint-disable-next-line prefer-rest-params
+            _super.apply(this, arguments);
         };
     });
-}
+};

@@ -34,7 +34,7 @@ contract('SimpleToken', (accounts) => {
 
         it('should revertWith', () => expect(
             simpleToken.transfer(receiverAccount, aToken, { from: accounts[1] }),
-        ).to.revertWith('SafeMath: subtraction overflow'));
+        ).to.revertWith('ERC20: transfer amount exceeds balance'));
 
         it('should revertWith when using \'', () => expect(
             simpleToken.failQuote(),
@@ -103,6 +103,10 @@ contract('SimpleToken', (accounts) => {
             } finally {
                 expect(err.message).to.equal('expected \'5\' (BN) to be equal to \'6\' but instead got \'5\'');
             }
+        });
+
+        it('should work with existing equal', async () => {
+            expect(6).to.be.equal(6);
         });
     });
 });
