@@ -1,6 +1,6 @@
 {
-    "name": "girino",
-    "version": "0.0.1-alpha",
+    "name": "@hq20/girino",
+    "version": "0.0.1-beta",
     "description": "A truffle test helper to use with chai.",
     "main": "src/index.js",
     "files": [
@@ -23,8 +23,11 @@
         "smart",
         "contracts"
     ],
-    "author": "obernardovieira",
-    "license": "GPL-3.0-only",
+    "license": "Apache-2.0",
+    "author": {
+        "name": "TechHQ",
+        "github": "hq20"
+    },
     "dependencies": {
         "bignumber.js": "9.0.0",
         "chai": "4.2.0"
