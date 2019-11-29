@@ -9,12 +9,14 @@
     ],
     "scripts": {
         "build": "tsc",
-        "prepublishOnly": "npm run build",
-        "test": "mocha -r ts-node/register index.spec.ts",
+        "prepublishOnly": "yarn build",
+        "pretest": "yarn generate-ts",
+        "test": "mocha",
         "lint": "tslint -c tslint.json index.ts",
         "coverage": "nyc --reporter=html --reporter=text npm test",
         "coverage:ci": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-        "docs": "jsdoc ./src/*.js -d ./docs"
+        "docs": "jsdoc ./src/*.js -d ./docs",
+        "generate-ts": "truffle compile && typechain --target truffle --outDir types/truffle-contracts './build/contracts/*.json'"
     },
     "keywords": [
         "chai",
@@ -37,8 +39,13 @@
     },
     "devDependencies": {
         "@openzeppelin/contracts": "2.4.0",
+        "@types/chai": "4.2.5",
+        "@types/mocha": "5.2.7",
+        "@types/node": "8.10.59",
+        "@vingle/tslint-preset": "1.0.0",
         "chai": "4.2.0",
         "coveralls": "3.0.8",
+        "del": "5.1.0",
         "jsdoc": "3.6.3",
         "mocha": "6.2.2",
         "nyc": "14.1.1",
@@ -48,11 +55,12 @@
         "tslint": "5.20.1",
         "typescript": "3.7.2",
         "typings": "2.1.1",
-        "@types/chai": "4.2.5",
-        "@types/mocha": "5.2.7",
-        "@types/node": "8.10.59",
-        "@vingle/tslint-preset": "1.0.0",
-        "del": "5.1.0"
+        "ethlint": "1.2.5",
+        "truffle-typings": "1.0.8",
+        "typechain": "1.0.3",
+        "typechain-target-truffle": "1.0.2",
+        "ts-generator": "0.0.8",
+        "@truffle/hdwallet-provider": "1.0.26"
     },
     "nyc": {
         "all": true,
