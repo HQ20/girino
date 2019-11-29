@@ -1,20 +1,12 @@
 {
     "compilerOptions": {
-        "target": "es5",
         "module": "commonjs",
-        "outDir": "./dist",
-        "strict": true,
-        "moduleResolution": "node",
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "forceConsistentCasingInFileNames": true,
-        "lib": [
-            "es2015",
-            "dom"
-        ],
+        "target": "es2017",
+        "noImplicitAny": true,
+        "declaration": true,
         "sourceMap": true,
+        "strictNullChecks": true,
+        "outDir": "./dist",
         "typeRoots": [
             "./node_modules/@types",
             "./types"
@@ -26,12 +18,6 @@
         ]
     },
     "include": [
-        "**/*.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "test",
-        "example",
-        "build"
+        "index.ts"
     ]
 }

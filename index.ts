@@ -14,7 +14,7 @@ export = function chaiGirino(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
     const { Assertion } = chai;
 
     // eslint-disable-next-line func-names
-    utils.addProperty(Assertion.prototype, 'revert', function (this: any) {
+    utils.addProperty(Assertion.prototype, 'revert', function(this: any) {
         // eslint-disable-next-line no-underscore-dangle
         const txPromise = this._obj.then(
             (value: any) => {
@@ -42,7 +42,7 @@ export = function chaiGirino(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
     });
 
     // eslint-disable-next-line func-names
-    utils.addMethod(Assertion.prototype, 'revertWith', function (this: any, revertReason: string) {
+    utils.addMethod(Assertion.prototype, 'revertWith', function(this: any, revertReason: string) {
         // eslint-disable-next-line no-underscore-dangle
         const txPromise = this._obj.then(
             (value: any) => {
@@ -78,7 +78,7 @@ export = function chaiGirino(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
     });
 
     // eslint-disable-next-line func-names
-    utils.addMethod(Assertion.prototype, 'emit', function (this: any, eventName: string) {
+    utils.addMethod(Assertion.prototype, 'emit', function(this: any, eventName: string) {
         // eslint-disable-next-line no-underscore-dangle
         const txPromise = this._obj.then(
             (value: any) => {
@@ -105,7 +105,7 @@ export = function chaiGirino(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
     });
 
     // eslint-disable-next-line func-names
-    utils.addMethod(Assertion.prototype, 'withArgs', function (this: any, ...args: any) {
+    utils.addMethod(Assertion.prototype, 'withArgs', function(this: any, ...args: any) {
         // eslint-disable-next-line no-underscore-dangle
         const txPromise = this._obj.then(
             (value: any) => {
@@ -140,8 +140,8 @@ export = function chaiGirino(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
         return this;
     });
 
-    // eslint-disable-next-line
-    utils.overwriteMethod(Assertion.prototype, 'equal', function (this: any, _super: any) {
+    // tslint:disable-next-line: variable-name
+    utils.overwriteMethod(Assertion.prototype, 'equal', function(this: any, _super: any) {
         // eslint-disable-next-line consistent-return
         return function assertEqualBN(this: any, n: any) {
             // eslint-disable-next-line no-underscore-dangle
@@ -166,4 +166,4 @@ export = function chaiGirino(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
             _super.apply(this, arguments);
         };
     });
-}
+};
