@@ -1,7 +1,7 @@
 const SimpleToken = artifacts.require('SimpleToken');
 const BigNumber = require('bignumber.js');
 const chai = require('chai');
-const girino = require('../src/index');
+const girino = require('../dist/index');
 
 const { expect } = chai;
 
