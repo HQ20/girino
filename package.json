@@ -44,7 +44,7 @@
         "mocha": "6.2.2",
         "nyc": "14.1.1",
         "@openzeppelin/contracts": "2.4.0",
-        "truffle": "5.1.4"
+        "truffle": "5.1.5"
     },
     "nyc": {
         "all": true,
