@@ -1,5 +1,7 @@
 # girino
 
+[DISCONTINUED] - we started this project because we did want to have smother checks. Since we already use chai, we did want to use it with chai. Although, we decided to take the learnings from this, and colaborate with https://github.com/OpenZeppelin/openzeppelin-test-helpers. This way, we are helping to build a better tool for everyone instead of creating some redundancy. Thank you.
+
 Girino is a chai module to improve truffle test development.
 
 ## Installation
